@@ -28,22 +28,25 @@
     }
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.5",
     "ext-fileinfo": "*",
     "ext-iconv": "*",
     "ext-json": "*",
     "ext-zip": "*",
-    "nette/finder": "^2.5",
-    "nette/utils": "^3.1",
-    "softcreatr/jsonpath": "^0.7.3"
+    "nette/finder": "^3.0",
+    "nette/utils": "^4.0",
+    "softcreatr/jsonpath": "^1.0"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.6",
-    "php-coveralls/php-coveralls": "^2.1",
-    "phpunit/phpunit": "^9.4",
+    "php-coveralls/php-coveralls": "^2.9",
+    "phpunit/phpunit": "^13.0",
     "wavevision/coding-standard": "^6.0"
   },
   "extra": {

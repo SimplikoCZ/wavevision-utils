@@ -6,9 +6,8 @@ use Nette\IOException;
 use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\Server;
 
-/**
- * @covers \Wavevision\Utils\Server
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Server::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Strings::class)]
 class ServerTest extends TestCase
 {
 

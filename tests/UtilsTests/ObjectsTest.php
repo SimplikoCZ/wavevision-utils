@@ -7,9 +7,8 @@ use stdClass;
 use Wavevision\Utils\Objects;
 use Wavevision\Utils\Tokenizer\Tokenizer;
 
-/**
- * @covers \Wavevision\Utils\Objects
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Objects::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Strings::class)]
 class ObjectsTest extends TestCase
 {
 
@@ -20,11 +19,12 @@ class ObjectsTest extends TestCase
 
 	public function testGetIfNotNull(): void
 	{
-		$mock = $this->getMockBuilder(stdClass::class)
-			->addMethods(['getYoMama'])
-			->getMock();
-		$mock->method('getYoMama')
-			->willReturn('mama');
+		$mock = new class {
+			public function getYoMama(): string
+			{
+				return 'mama';
+			}
+		};
 		$this->assertEquals('mama', Objects::getIfNotNull($mock, 'yoMama'));
 		$this->assertEquals(null, Objects::getIfNotNull(null, 'yoMama'));
 	}
@@ -36,53 +36,52 @@ class ObjectsTest extends TestCase
 
 	public function testHasGetter(): void
 	{
-		$this->assertTrue(
-			Objects::hasGetter(
-				$this->getMockBuilder(stdClass::class)
-					->addMethods(['getSomething'])
-					->getMock(),
-				'something'
-			)
-		);
+		$o = new class {
+			public function getSomething(): void
+			{
+			}
+		};
+		$this->assertTrue(Objects::hasGetter($o, 'something'));
 		$this->assertFalse(Objects::hasGetter(new stdClass(), 'something'));
 	}
 
 	public function testHasSetter(): void
 	{
-		$this->assertTrue(
-			Objects::hasSetter(
-				$this->getMockBuilder(stdClass::class)
-					->addMethods(['setSomething'])
-					->getMock(),
-				'something'
-			)
-		);
+		$o = new class {
+			public function setSomething(): void
+			{
+			}
+		};
+		$this->assertTrue(Objects::hasSetter($o, 'something'));
 		$this->assertFalse(Objects::hasSetter(new stdClass(), 'something'));
 	}
 
 	public function testSet(): void
 	{
-		$mock = $this->getMockBuilder(stdClass::class)
-			->addMethods(['setYoMama'])
-			->getMock();
-		$mock->method('setYoMama')
-			->willReturnSelf();
+		$mock = new class {
+			public function setYoMama($val): self
+			{
+				return $this;
+			}
+		};
 		$this->assertSame($mock, Objects::set($mock, 'yoMama', null));
 	}
 
 	public function testToArray(): void
 	{
-		$mock = $this->getMockBuilder(stdClass::class)
-			->addMethods(['getYoMama', 'getYo', 'getN1', 'getPope'])
-			->getMock();
-		$n2Mock = $this->getMockBuilder(stdClass::class)
-			->addMethods(['getN2'])
-			->getMock();
-		$n2Mock->method('getN2')->willReturn('42');
-		$mock->method('getYoMama')->willReturn('chewbacca');
-		$mock->method('getYo')->willReturn('yo');
-		$mock->method('getN1')->willReturn($n2Mock);
-		$mock->method('getPope')->willReturn(null);
+		$n2 = new class {
+			public function getN2(): string
+			{
+				return '42';
+			}
+		};
+		$mock = new class($n2) {
+			public function __construct(private object $n2) {}
+			public function getYoMama(): string { return 'chewbacca'; }
+			public function getYo(): string { return 'yo'; }
+			public function getN1(): object { return $this->n2; }
+			public function getPope(): ?string { return null; }
+		};
 		$this->assertEquals(
 			[
 				'yoMama' => 'chewbacca',
@@ -113,15 +112,22 @@ class ObjectsTest extends TestCase
 
 	public function testCopyAttributes(): void
 	{
-		$source = $this->getMockBuilder(stdClass::class)
-			->addMethods(['getA'])
-			->getMock();
-		$source->expects($this->once())->method('getA')->willReturn('1');
-		$target = $this->getMockBuilder(stdClass::class)
-			->addMethods(['setA'])
-			->getMock();
-		$target->expects($this->once())->method('setA')->with('1');
+		$source = new class {
+			public function getA(): string
+			{
+				return '1';
+			}
+		};
+		$target = new class {
+			public string $a;
+
+			public function setA(string $a): void
+			{
+				$this->a = $a;
+			}
+		};
 		Objects::copyAttributes($source, $target, ['A']);
+		$this->assertEquals('1', $target->a);
 	}
 
 }

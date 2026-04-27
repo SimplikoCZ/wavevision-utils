@@ -7,9 +7,7 @@ use Wavevision\Utils\SerialNumber;
 use Wavevision\Utils\SerialNumberInvalidMask;
 use function date;
 
-/**
- * @covers \Wavevision\Utils\SerialNumber
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\SerialNumber::class)]
 class SerialNumberTest extends TestCase
 {
 

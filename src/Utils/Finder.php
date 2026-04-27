@@ -2,13 +2,12 @@
 
 namespace Wavevision\Utils;
 
-use ArrayIterator;
-use Iterator;
 use Nette\Utils\Finder as NetteFinder;
 use SplFileInfo;
-use function is_callable;
-use function iterator_to_array;
 
+/**
+ * @implements \IteratorAggregate<string, SplFileInfo>
+ */
 class Finder extends NetteFinder
 {
 
@@ -21,66 +20,48 @@ class Finder extends NetteFinder
 	public const ORDER_DESC = 'DESC';
 
 	/**
-	 * @var callable
+	 * @return static
 	 */
-	private $sort;
-
-	/**
-	 * @return Iterator<SplFileInfo>
-	 */
-	public function getIterator(): Iterator
+	public function setSort(callable $sort): static
 	{
-		$iterator = parent::getIterator();
-		if (!is_callable($this->sort)) {
-			return $iterator;
-		}
-		$iterator = new ArrayIterator(iterator_to_array($iterator));
-		$iterator->uasort($this->sort);
-		return $iterator;
+		return $this->sortBy($sort);
 	}
 
 	/**
-	 * @return Finder<SplFileInfo>
+	 * @return static
 	 */
-	public function setSort(callable $sort): self
+	public function sortByMTime(string $order = self::ORDER_DESC): static
 	{
-		$this->sort = $sort;
-		return $this;
-	}
-
-	/**
-	 * @return Finder<SplFileInfo>
-	 */
-	public function sortByMTime(string $order = self::ORDER_DESC): self
-	{
-		$this->sort = function (SplFileInfo $f1, SplFileInfo $f2) use ($order): int {
-			if ($order === self::ORDER_DESC) {
-				return $f2->getMTime() - $f1->getMTime();
+		return $this->sortBy(
+			function (SplFileInfo $f1, SplFileInfo $f2) use ($order): int {
+				if ($order === self::ORDER_DESC) {
+					return $f2->getMTime() - $f1->getMTime();
+				}
+				return $f1->getMTime() - $f2->getMTime();
 			}
-			return $f1->getMTime() - $f2->getMTime();
-		};
-		return $this;
+		);
 	}
 
 	/**
-	 * @return Finder<SplFileInfo>
+	 * @return static
 	 */
-	public function sortByName(string $order = self::ORDER_ASC, string $case = self::CASE_INSENSITIVE): self
+	public function sortByName(string $order = self::ORDER_ASC, string $case = self::CASE_INSENSITIVE): static
 	{
 		$fn = $case === self::CASE_INSENSITIVE ? 'strcasecmp' : 'strcmp';
-		$this->sort = function (SplFileInfo $f1, SplFileInfo $f2) use ($fn, $order): int {
-			if ($order === self::ORDER_ASC) {
+		return $this->sortBy(
+			function (SplFileInfo $f1, SplFileInfo $f2) use ($fn, $order): int {
+				if ($order === self::ORDER_ASC) {
+					return $fn(
+						Strings::removeAccentedChars($f1->getFilename()),
+						Strings::removeAccentedChars($f2->getFilename())
+					);
+				}
 				return $fn(
-					Strings::removeAccentedChars($f1->getFilename()),
-					Strings::removeAccentedChars($f2->getFilename())
+					Strings::removeAccentedChars($f2->getFilename()),
+					Strings::removeAccentedChars($f1->getFilename())
 				);
 			}
-			return $fn(
-				Strings::removeAccentedChars($f2->getFilename()),
-				Strings::removeAccentedChars($f1->getFilename())
-			);
-		};
-		return $this;
+		);
 	}
 
 }

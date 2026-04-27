@@ -78,7 +78,11 @@ class File
 
 	public function write(string $content): int
 	{
-		$result = @fwrite($this->resource, $content);
+		try {
+			$result = @fwrite($this->resource, $content);
+		} catch (\TypeError $e) {
+			throw new InvalidState($e->getMessage(), 0, $e);
+		}
 		if ($result === false) {
 			throw new InvalidState(self::getLastError());
 		}
@@ -87,7 +91,11 @@ class File
 
 	public function getContents(): string
 	{
-		$result = @stream_get_contents($this->resource);
+		try {
+			$result = @stream_get_contents($this->resource);
+		} catch (\TypeError $e) {
+			throw new InvalidState($e->getMessage(), 0, $e);
+		}
 		if ($result === false) {
 			throw new InvalidState(self::getLastError());
 		}

@@ -1,31 +1,27 @@
-<?xml version="1.0"?>
-<phpunit
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	colors="true"
-	backupGlobals="false"
-	backupStaticAttributes="false"
-	beStrictAboutChangesToGlobalState="true"
-	beStrictAboutOutputDuringTests="true"
-	beStrictAboutTestsThatDoNotTestAnything="true"
-	beStrictAboutTodoAnnotatedTests="true"
-	cacheResult="true"
-	cacheResultFile="temp/.phpunit.result.cache"
-	stopOnDefect="true"
-	executionOrder="defects"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
->
-	<coverage processUncoveredFiles="true">
-		<include>
-			<directory suffix=".php">src</directory>
-		</include>
-		<report>
-			<text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
-		</report>
-	</coverage>
-	<testsuites>
-		<testsuite name="Tests">
-			<directory suffix="Test.php">tests</directory>
-		</testsuite>
-	</testsuites>
-	<logging/>
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/13.1/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory="temp/.phpunit.cache"
+         executionOrder="defects"
+         beStrictAboutCoverageMetadata="true"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         colors="true">
+    <testsuites>
+        <testsuite name="Tests">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
+    </testsuites>
+    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
+    <coverage>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
+        </report>
+    </coverage>
 </phpunit>

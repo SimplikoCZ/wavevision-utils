@@ -5,9 +5,8 @@ namespace Wavevision\UtilsTests;
 use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\Validators;
 
-/**
- * @covers \Wavevision\Utils\Validators
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Validators::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Strings::class)]
 class ValidatorsTest extends TestCase
 {
 

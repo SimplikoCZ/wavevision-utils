@@ -14,9 +14,8 @@ use function is_int;
 use function is_string;
 use function reset;
 
-/**
- * @covers \Wavevision\Utils\Arrays
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Arrays::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Objects::class)]
 class ArraysTest extends TestCase
 {
 
@@ -87,11 +86,12 @@ class ArraysTest extends TestCase
 	{
 		$o1 = new stdClass();
 		$o1->something = 'someValue';
-		$o2 = $this->getMockBuilder(stdClass::class)
-			->addMethods(['getSomething'])
-			->getMock();
-		$o2->method('getSomething')
-			->willReturn('otherValue');
+		$o2 = new class {
+			public function getSomething(): string
+			{
+				return 'otherValue';
+			}
+		};
 		$this->assertEquals(['someValue', 'otherValue'], Arrays::extractObjectValues([$o1, $o2], 'something'));
 	}
 

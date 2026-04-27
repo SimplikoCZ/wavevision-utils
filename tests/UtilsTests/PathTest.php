@@ -6,9 +6,7 @@ use Nette\InvalidStateException;
 use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\Path;
 
-/**
- * @covers \Wavevision\Utils\Path
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Path::class)]
 class PathTest extends TestCase
 {
 

@@ -12,9 +12,8 @@ use function file_put_contents;
 use function time;
 use function touch;
 
-/**
- * @covers \Wavevision\Utils\Finder
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Finder::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Strings::class)]
 class FinderTest extends TestCase
 {
 
@@ -27,7 +26,7 @@ class FinderTest extends TestCase
 				return 0;
 			}
 		);
-		$this->assertInstanceOf(ArrayIterator::class, $finder->getIterator());
+		$this->assertInstanceOf(\Generator::class, $finder->getIterator());
 	}
 
 	public function testSortByMTime(): void

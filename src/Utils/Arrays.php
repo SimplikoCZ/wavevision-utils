@@ -189,8 +189,17 @@ class Arrays extends NetteArrays
 	 * @param iterable<mixed> $collection
 	 * @return int|string|null
 	 */
-	public static function firstKey(iterable $collection)
+	public static function firstKey(iterable $collection, ?callable $predicate = null): int|string|null
 	{
+		if ($predicate !== null) {
+			$array = is_array($collection) ? $collection : iterator_to_array($collection);
+			foreach ($array as $k => $v) {
+				if ($predicate($v, $k, $array)) {
+					return $k;
+				}
+			}
+			return null;
+		}
 		$key = null;
 		foreach (self::iterableKeys($collection) as $key) {
 			break;
@@ -401,13 +410,16 @@ class Arrays extends NetteArrays
 	 * @param iterable<mixed> $collection
 	 * @return int|string|null
 	 */
-	public static function lastKey(iterable $collection)
+	public static function lastKey(iterable $collection, ?callable $predicate = null): int|string|null
 	{
-		$array = [];
-		if (is_array($collection)) {
-			$array = $collection;
-		} else {
-			array_push($array, ...$collection);
+		$array = is_array($collection) ? $collection : iterator_to_array($collection);
+		if ($predicate !== null) {
+			foreach (array_reverse($array, true) as $k => $v) {
+				if ($predicate($v, $k, $array)) {
+					return $k;
+				}
+			}
+			return null;
 		}
 		end($array);
 		return key($array);
