@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "078bb1f78ada5236096c84f69f3374a9",
+    "content-hash": "054e61713bb745200540a5f9352241b2",
     "packages": [
         {
             "name": "nette/finder",
@@ -4243,7 +4243,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.5",
+        "php": "^8.4",
         "ext-fileinfo": "*",
         "ext-iconv": "*",
         "ext-json": "*",
