@@ -5,6 +5,7 @@ namespace Wavevision\UtilsTests;
 use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\ContentTypes;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\ContentTypes::class)]
 class ContentTypesTest extends TestCase
 {
 

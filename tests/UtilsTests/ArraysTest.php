@@ -167,13 +167,13 @@ class ArraysTest extends TestCase
 			],
 			'single' => '',
 		];
-		$this->assertEquals(true, Arrays::hasNestedKey($array, 'single'));
-		$this->assertEquals(true, Arrays::hasNestedKey($array, 'parts', '0'));
-		$this->assertEquals(true, Arrays::hasNestedKey($array, ...['parts', '0', 'material']));
-		$this->assertEquals(true, Arrays::hasNestedKey($array, 'parts', '0', 'format'));
-		$this->assertEquals(false, Arrays::hasNestedKey($array, 'parts', '1', 'format'));
-		$this->assertEquals(false, Arrays::hasNestedKey($array, '42'));
-		$this->assertEquals(true, Arrays::hasNestedKey($array));
+		$this->assertTrue(Arrays::hasNestedKey($array, 'single'));
+		$this->assertTrue(Arrays::hasNestedKey($array, 'parts', '0'));
+		$this->assertTrue(Arrays::hasNestedKey($array, ...['parts', '0', 'material']));
+		$this->assertTrue(Arrays::hasNestedKey($array, 'parts', '0', 'format'));
+		$this->assertFalse(Arrays::hasNestedKey($array, 'parts', '1', 'format'));
+		$this->assertFalse(Arrays::hasNestedKey($array, '42'));
+		$this->assertTrue(Arrays::hasNestedKey($array));
 	}
 
 	public function testGetNestedValue(): void
@@ -185,17 +185,17 @@ class ArraysTest extends TestCase
 		];
 		$this->assertEquals(['2' => 42], Arrays::getNestedValue($array, '1'));
 		$this->assertEquals(42, Arrays::getNestedValue($array, '1', '2'));
-		$this->assertEquals(null, Arrays::getNestedValue($array, '3'));
-		$this->assertEquals(null, Arrays::getNestedValue([], 'x'));
+		$this->assertNull(Arrays::getNestedValue($array, '3'));
+		$this->assertNull(Arrays::getNestedValue([], 'x'));
 		$this->assertEquals($array, Arrays::getNestedValue($array));
 	}
 
 	public function testHasSameValues(): void
 	{
-		$this->assertEquals(true, Arrays::hasSameValues([], []));
-		$this->assertEquals(false, Arrays::hasSameValues([], ['one']));
-		$this->assertEquals(true, Arrays::hasSameValues(['one'], [1 => 'one']));
-		$this->assertEquals(true, Arrays::hasSameValues(['one', 'two'], ['two', 'one']));
+		$this->assertTrue(Arrays::hasSameValues([], []));
+		$this->assertFalse(Arrays::hasSameValues([], ['one']));
+		$this->assertTrue(Arrays::hasSameValues(['one'], [1 => 'one']));
+		$this->assertTrue(Arrays::hasSameValues(['one', 'two'], ['two', 'one']));
 	}
 
 	public function testImplode(): void

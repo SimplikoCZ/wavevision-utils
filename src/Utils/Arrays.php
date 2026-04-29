@@ -182,7 +182,11 @@ class Arrays extends NetteArrays
 	 */
 	public static function firstItem($collection)
 	{
-		return $collection[self::firstKey($collection)] ?? null;
+		$key = self::firstKey($collection);
+		if ($key === null) {
+			return null;
+		}
+		return $collection[$key] ?? null;
 	}
 
 	/**
@@ -403,7 +407,11 @@ class Arrays extends NetteArrays
 	 */
 	public static function lastItem($collection)
 	{
-		return $collection[self::lastKey($collection)] ?? null;
+		$key = self::lastKey($collection);
+		if ($key === null) {
+			return null;
+		}
+		return $collection[$key] ?? null;
 	}
 
 	/**

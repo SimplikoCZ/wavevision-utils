@@ -26,7 +26,7 @@ class ObjectsTest extends TestCase
 			}
 		};
 		$this->assertEquals('mama', Objects::getIfNotNull($mock, 'yoMama'));
-		$this->assertEquals(null, Objects::getIfNotNull(null, 'yoMama'));
+		$this->assertNull(Objects::getIfNotNull(null, 'yoMama'));
 	}
 
 	public function testGetNamespace(): void

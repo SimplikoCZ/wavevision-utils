@@ -8,6 +8,9 @@ use Wavevision\Utils\ExternalProgram\Failure;
 use Wavevision\Utils\ExternalProgram\Result;
 use function sprintf;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\ExternalProgram\Executor::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\ExternalProgram\Result::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\ExternalProgram\Failure::class)]
 class ExecutorTest extends TestCase
 {
 

@@ -7,6 +7,8 @@ use Nette\Utils\Json;
 use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\DOM\DataAttribute;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\DOM\DataAttribute::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Strings::class)]
 class DataAttributeTest extends TestCase
 {
 

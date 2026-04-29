@@ -2,8 +2,10 @@
 
 namespace Wavevision\UtilsTests;
 
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
+#[\PHPUnit\Framework\Attributes\CoversTrait(\Wavevision\Utils\ImmutableObject::class)]
 class ImmutableObjectTest extends TestCase
 {
 

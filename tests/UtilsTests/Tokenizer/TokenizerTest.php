@@ -12,6 +12,8 @@ use const T_CLASS;
 use const T_INTERFACE;
 use const T_TRAIT;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Tokenizer\Tokenizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Tokenizer\TokenizeResult::class)]
 class TokenizerTest extends TestCase
 {
 
@@ -70,8 +72,7 @@ class TokenizerTest extends TestCase
 
 	private function assertNoStructure(string $php): void
 	{
-		$this->assertEquals(
-			null,
+		$this->assertNull(
 			(new Tokenizer())->getStructureNameFromFile($this->getFile($php), [T_CLASS])
 		);
 	}

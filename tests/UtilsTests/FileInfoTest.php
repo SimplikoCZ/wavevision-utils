@@ -7,6 +7,7 @@ use Nette\Utils\DateTime;
 use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\FileInfo;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\FileInfo::class)]
 class FileInfoTest extends TestCase
 {
 

@@ -7,6 +7,10 @@ use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\Zip\ZipArchive;
 use Wavevision\Utils\Zip\ZipArchiveItem;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Zip\ZipArchive::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\FileInfo::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Path::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Zip\ZipArchiveItem::class)]
 class ZipArchiveTest extends TestCase
 {
 

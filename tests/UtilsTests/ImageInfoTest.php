@@ -8,6 +8,8 @@ use Wavevision\Utils\ImageInfo;
 use Wavevision\Utils\Path;
 use function sprintf;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\ImageInfo::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Path::class)]
 class ImageInfoTest extends TestCase
 {
 

@@ -3,9 +3,11 @@
 namespace Wavevision\UtilsTests;
 
 use org\bovigo\vfs\vfsStream as fs;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\Maintenance;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\Maintenance::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Wavevision\Utils\Path::class)]
 class MaintenanceTest extends TestCase
 {
 

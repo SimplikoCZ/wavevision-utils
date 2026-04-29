@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Wavevision\Utils\File;
 use Wavevision\Utils\InvalidState;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\Wavevision\Utils\File::class)]
 class FileTest extends TestCase
 {
 
@@ -19,7 +20,7 @@ class FileTest extends TestCase
 	{
 		$file = File::open(__DIR__ . '/file.txt', 'r');
 		$this->assertEquals(['hello'], $file->getCsv());
-		$this->assertEquals(null, $file->getCsv());
+		$this->assertNull($file->getCsv());
 		$file->close();
 	}
 
